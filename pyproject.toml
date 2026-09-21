@@ -4,13 +4,17 @@ version = "0.1.0"
 description = "Production-style healthcare patient follow-up agent"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "chromadb>=1.5.9",
     "fastapi",
+    "langchain-community>=0.4.2",
     "langchain-core>=1.6.3",
     "langchain-ollama>=1.1.0",
     "langgraph>=1.2.11",
+    "mcp>=2.2.0",
     "pandas",
     "pydantic",
     "pydantic-settings",
+    "sentence-transformers>=6.1.0",
     "uvicorn[standard]",
 ]
 
