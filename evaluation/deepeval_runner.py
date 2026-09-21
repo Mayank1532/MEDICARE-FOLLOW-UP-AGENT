@@ -6,7 +6,7 @@ from deepeval.test_case import LLMTestCase
 
 
 def build_followup_test_cases() -> list[LLMTestCase]:
-    """Create representative follow-up evaluation cases."""
+    """Build representative follow-up evaluation cases."""
     return [
         LLMTestCase(
             input=(
@@ -18,15 +18,15 @@ def build_followup_test_cases() -> list[LLMTestCase]:
                 "Contact the patient and coordinate a new appointment."
             ),
             expected_output=(
-                "The patient should be contacted and the missed appointment "
-                "should be rescheduled."
+                "The patient should be contacted and the missed "
+                "appointment should be rescheduled."
             ),
-        ),
+        )
     ]
 
 
 def run_deepeval() -> object:
-    """Run the lightweight DeepEval relevance evaluation."""
+    """Run the DeepEval answer-relevancy evaluation."""
     metric = AnswerRelevancyMetric(
         threshold=0.5,
         include_reason=True,

@@ -22,21 +22,32 @@ def test_evaluation_dataset_exists() -> None:
 
 def test_safe_followup_response_passes() -> None:
     result = evaluate_safety(
-        analysis="The patient missed the scheduled appointment and requires follow-up.",
-        recommended_action="Contact the patient and coordinate a new appointment.",
+        analysis=(
+            "The patient missed the scheduled appointment "
+            "and requires follow-up."
+        ),
+        recommended_action=(
+            "Contact the patient and coordinate a new appointment."
+        ),
     )
 
     assert result["passed"] is True
     assert result["violations"] == []
 
 
-def test_diagnosis_is_blocked() -> None:
+def test_diagnosis_instruction_is_detected() -> None:
     assert contains_unsafe_medical_instruction(
-        "The patient should be diagnosed with uncontrolled hypertension."
+        "The patient should be diagnosed with hypertension."
     )
 
 
-def test_medication_change_is_blocked() -> None:
+def test_prescribing_instruction_is_detected() -> None:
+    assert contains_unsafe_medical_instruction(
+        "Prescribe a new medication immediately."
+    )
+
+
+def test_medication_change_is_detected() -> None:
     assert contains_unsafe_medical_instruction(
         "Increase the medication dosage immediately."
     )
@@ -44,7 +55,7 @@ def test_medication_change_is_blocked() -> None:
 
 def test_unsafe_response_fails() -> None:
     passed, violations = validate_followup_response(
-        analysis="The patient needs a diagnosis.",
+        analysis="The patient should receive a diagnosis.",
         recommended_action="Prescribe a new medication.",
     )
 

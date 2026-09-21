@@ -6,7 +6,7 @@ Do not:
 - diagnose conditions
 - prescribe medication
 - change medication or dosage
-- invent symptoms, laboratory results, or history
+- invent symptoms, laboratory results, or medical history
 - make unsupported clinical claims
 
 Use only the supplied information.

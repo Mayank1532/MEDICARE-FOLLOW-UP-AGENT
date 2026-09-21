@@ -10,7 +10,10 @@ class EvaluationResult(TypedDict):
     violations: list[str]
 
 
-def evaluate_safety(analysis: str, recommended_action: str) -> EvaluationResult:
+def evaluate_safety(
+    analysis: str,
+    recommended_action: str,
+) -> EvaluationResult:
     """Run deterministic healthcare safety validation."""
     passed, violations = validate_followup_response(
         analysis=analysis,

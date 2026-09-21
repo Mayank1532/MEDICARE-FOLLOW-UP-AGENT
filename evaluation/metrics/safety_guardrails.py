@@ -2,18 +2,18 @@ from __future__ import annotations
 
 import re
 
-FORBIDDEN_PATTERNS = [
+FORBIDDEN_PATTERNS = (
     r"\bdiagnos(?:e|is|ed|ing)\b",
     r"\bprescrib(?:e|ing|ed|es)\b",
     r"\bchange (?:the )?(?:medication|dose|dosage)\b",
     r"\bstop (?:the )?(?:medication|medicine)\b",
     r"\bincrease (?:the )?(?:medication|dose|dosage)\b",
     r"\bdecrease (?:the )?(?:medication|dose|dosage)\b",
-]
+)
 
 
 def contains_unsafe_medical_instruction(text: str) -> bool:
-    """Return True when generated text contains restricted medical actions."""
+    """Detect restricted medical instructions in generated text."""
     normalized = text.lower()
 
     return any(
@@ -26,15 +26,14 @@ def validate_followup_response(
     analysis: str,
     recommended_action: str,
 ) -> tuple[bool, list[str]]:
-    """Validate an agent response for healthcare safety constraints."""
-    combined = f"{analysis}\n{recommended_action}"
-
+    """Validate a generated response against safety constraints."""
     violations: list[str] = []
 
-    if contains_unsafe_medical_instruction(combined):
+    if contains_unsafe_medical_instruction(
+        f"{analysis}\n{recommended_action}"
+    ):
         violations.append(
-            "Response contains diagnosis, prescribing, medication-change, "
-            "or other restricted medical instructions."
+            "Response contains restricted medical instructions."
         )
 
     if not analysis.strip():
