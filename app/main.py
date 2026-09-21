@@ -1,20 +1,19 @@
 from fastapi import FastAPI
 
+from app.api.routes.patients import router as patient_router
 from app.core.config import settings
-from app.core.logging import configure_logging
-
-configure_logging(settings.log_level)
 
 app = FastAPI(
-    title=settings.app_name,
+    title="MediCare Follow-Up Agent",
+    description="Healthcare patient follow-up decision-support API.",
     version=settings.app_version,
 )
 
+app.include_router(patient_router)
+
 
 @app.get("/health")
-def health_check() -> dict[str, str]:
-    """Return application health information."""
-
+def health() -> dict[str, str]:
     return {
         "status": "healthy",
         "service": settings.app_name,
