@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.api.routes.patients import router as patient_router
+from app.api.routes.workflows import router as workflow_router
 from app.core.config import settings
 
 app = FastAPI(
@@ -10,6 +11,7 @@ app = FastAPI(
 )
 
 app.include_router(patient_router)
+app.include_router(workflow_router)
 
 
 @app.get("/health")
