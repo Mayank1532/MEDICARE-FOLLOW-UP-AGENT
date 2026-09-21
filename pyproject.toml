@@ -5,6 +5,9 @@ description = "Production-style healthcare patient follow-up agent"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "fastapi",
+    "langchain-core>=1.6.3",
+    "langchain-ollama>=1.1.0",
+    "langgraph>=1.2.11",
     "pandas",
     "pydantic",
     "pydantic-settings",
