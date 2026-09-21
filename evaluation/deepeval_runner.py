@@ -34,10 +34,13 @@ def run_deepeval() -> Any:
         include_reason=True,
     )
 
-    return evaluate(
+    # DeepEval exposes evaluate as a runtime callable while its
+    # current type information is interpreted as a module by MyPy.
+    result = evaluate(  # type: ignore[operator]
         test_cases=build_followup_test_cases(),
         metrics=[metric],
     )
+    return result
 
 
 if __name__ == "__main__":
