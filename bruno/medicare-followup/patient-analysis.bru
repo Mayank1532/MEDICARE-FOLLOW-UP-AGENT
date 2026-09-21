@@ -1,0 +1,17 @@
+meta {
+  name: Patient Analysis Workflow
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8000/api/v1/workflows/patients/P0001/analysis
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.patient_id: eq "P0001"
+  res.body.workflow: eq "patient_analysis"
+}

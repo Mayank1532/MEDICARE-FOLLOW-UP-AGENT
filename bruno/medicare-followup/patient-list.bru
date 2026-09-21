@@ -1,0 +1,16 @@
+meta {
+  name: Patient List
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8000/api/v1/patients
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.count: eq 100
+}

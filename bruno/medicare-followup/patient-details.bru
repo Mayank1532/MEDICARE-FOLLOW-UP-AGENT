@@ -1,0 +1,16 @@
+meta {
+  name: Patient Details
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:8000/api/v1/patients/P0001
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.patient_id: eq "P0001"
+}

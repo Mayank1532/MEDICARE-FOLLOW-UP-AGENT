@@ -54,3 +54,4 @@ evaluation/reports/*
 
 # Scratch
 scratch/
+coverage.xml

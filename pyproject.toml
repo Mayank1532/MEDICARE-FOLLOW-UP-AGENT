@@ -26,6 +26,7 @@ dev = [
     "pandas-stubs>=3.0.5.260914",
     "pytest",
     "pytest-asyncio",
+    "pytest-cov>=7.1.0",
     "ruff",
 ]
 

@@ -1,0 +1,18 @@
+meta {
+  name: Missed Appointment Workflow
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8000/api/v1/workflows/patients/P0018/missed-appointment
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.patient_id: eq "P0018"
+  res.body.workflow: eq "missed_appointment"
+  res.body.missed_last_appointment: eq "yes"
+}

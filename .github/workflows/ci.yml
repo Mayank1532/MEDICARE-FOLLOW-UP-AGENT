@@ -1,0 +1,51 @@
+name: MediCare Follow-Up Agent CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.28"
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Ruff
+        run: uv run ruff check app tests evaluation
+
+      - name: MyPy
+        run: uv run mypy app evaluation
+
+      - name: Pytest
+        run: uv run pytest -q --cov=app --cov-report=xml
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: quality
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t medicare-followup-agent:ci .
+
+      - name: Validate Docker image
+        run: docker image inspect medicare-followup-agent:ci

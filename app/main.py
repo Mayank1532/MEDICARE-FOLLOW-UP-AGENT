@@ -1,21 +1,24 @@
 from fastapi import FastAPI
 
-from app.api.routes.patients import router as patient_router
-from app.api.routes.workflows import router as workflow_router
+from app.api.middleware import request_logging_middleware
+from app.api.routes import patients, workflows
 from app.core.config import settings
 
 app = FastAPI(
-    title="MediCare Follow-Up Agent",
-    description="Healthcare patient follow-up decision-support API.",
+    title=settings.app_name,
     version=settings.app_version,
+    description="Production-style healthcare follow-up decision-support service.",
 )
 
-app.include_router(patient_router)
-app.include_router(workflow_router)
+app.middleware("http")(request_logging_middleware)
+
+app.include_router(patients.router)
+app.include_router(workflows.router)
 
 
 @app.get("/health")
 def health() -> dict[str, str]:
+    """Return application health status."""
     return {
         "status": "healthy",
         "service": settings.app_name,
