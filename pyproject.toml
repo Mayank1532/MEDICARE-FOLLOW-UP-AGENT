@@ -20,6 +20,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "deepeval>=4.2.3",
     "httpx",
     "mypy",
     "pandas-stubs>=3.0.5.260914",
