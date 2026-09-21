@@ -1,0 +1,16 @@
+flowchart LR
+    U[Care Coordinator] --> UI[Streamlit UI]
+    UI --> API[FastAPI API]
+    API --> WF[Workflow Service]
+    WF --> AG[LangGraph Agent]
+    AG --> PT[Patient Data Tools]
+    AG --> RR[RAG Retrieval]
+    AG --> MCP[MCP Tools]
+    AG --> LLM[Ollama LLM]
+    RR --> VS[(Chroma Vector Store)]
+    RR --> EMB[Sentence Transformer Embeddings]
+    MCP --> KB[Follow-up Guidelines]
+    PT --> CSV[(Patient CSV)]
+    AG --> OUT[Structured Follow-up Analysis]
+    OUT --> API
+    API --> UI

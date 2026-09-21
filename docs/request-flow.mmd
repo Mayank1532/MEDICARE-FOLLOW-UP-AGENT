@@ -1,0 +1,24 @@
+sequenceDiagram
+    actor C as Care Coordinator
+    participant UI as Streamlit
+    participant API as FastAPI
+    participant W as Workflow
+    participant A as LangGraph Agent
+    participant R as RAG
+    participant M as MCP
+    participant L as Ollama
+
+    C->>UI: Select patient
+    UI->>API: POST patient analysis
+    API->>W: Start workflow
+    W->>A: Build patient context
+    A->>R: Retrieve follow-up guidance
+    R-->>A: Relevant guidance
+    A->>M: Access supported tool context
+    M-->>A: Tool result
+    A->>L: Generate structured analysis
+    L-->>A: Analysis + recommended action
+    A-->>W: Workflow result
+    W-->>API: Structured response
+    API-->>UI: JSON response
+    UI-->>C: Follow-up recommendation
