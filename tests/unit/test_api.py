@@ -34,4 +34,9 @@ def test_missing_patient_endpoint() -> None:
     response = client.get("/api/v1/patients/P9999")
 
     assert response.status_code == 404
-    assert "Patient not found" in response.json()["detail"]
+
+    body = response.json()
+
+    assert body["error"] == "PATIENT_NOT_FOUND"
+    assert "Patient not found" in body["message"] or "was not found" in body["message"]
+    assert body["request_id"]

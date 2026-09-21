@@ -1,8 +1,9 @@
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 
 from app.api.schemas.responses import PatientListResponse, PatientResponse
+from app.core.exceptions import PatientNotFoundError
 from app.core.models import PatientRecord
 from app.services.patient_api_service import PatientAPIService
 
@@ -50,9 +51,6 @@ def get_patient(patient_id: str) -> PatientResponse:
     patient = patient_service.get_patient(patient_id)
 
     if patient is None:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Patient not found: {patient_id}",
-        )
+        raise PatientNotFoundError(patient_id)
 
     return to_response(patient)
