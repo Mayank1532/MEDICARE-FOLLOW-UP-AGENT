@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from deepeval import evaluate
 from deepeval.metrics import AnswerRelevancyMetric
 from deepeval.test_case import LLMTestCase
@@ -25,7 +27,7 @@ def build_followup_test_cases() -> list[LLMTestCase]:
     ]
 
 
-def run_deepeval() -> object:
+def run_deepeval() -> Any:
     """Run the DeepEval answer-relevancy evaluation."""
     metric = AnswerRelevancyMetric(
         threshold=0.5,
